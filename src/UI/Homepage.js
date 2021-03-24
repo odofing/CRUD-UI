@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import HomeNavbar from './Navbar/Home-Navbar';
 
-
 const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
+    const [open, close] = useState(false)
     
 
     const getUsers = async () => {
@@ -38,6 +38,11 @@ const Homepage = () => {
 
       }
 
+      // update form 
+      const handleUpdate = () => {
+
+      }
+
 
       const handleDelete = _id => {
         axios.delete(`https://portfolio-projects-restapi.herokuapp.com/posts/${_id}`)
@@ -45,10 +50,6 @@ const Homepage = () => {
         const removeItem = users.filter((user) => user._id !== _id)
        setUsers(removeItem);
         console.log(removeItem)
-      }
-
-      const handleUpdate = () => {
-        
       }
 
     return (
@@ -69,8 +70,9 @@ const Homepage = () => {
                               <p className="card-text">{desc}</p>
                                 <p className="card-text">{quote}</p>
                                 <p className="card-text">{others}</p>
-                                <Link to="/" className="btn btn-warning m-3" onClick={() => handleUpdate(_id)} >Update</Link>
+                          <Link to="/" className="btn btn-warning m-3" onClick={() => handleModal()} >Update</Link>
                              <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
+    
                              </div>
                          </div>
                          </div>
