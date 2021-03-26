@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import HomeNavbar from './Navbar/Home-Navbar';
 
-
 const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
-    const [users, setUsers] = useState([]);
-    
+  const [users, setUsers] = useState([]);
+  
 
     const getUsers = async () => {
         const resp = await fetch(url)
@@ -38,6 +37,16 @@ const Homepage = () => {
 
       }
 
+      // update form 
+      const handleUpdate = (_id) => {
+        const update = users.filter(user => {
+          let updateItem = user._id
+          console.log(updateItem)
+        })
+        console.log('clicked')
+          
+      }
+
 
       const handleDelete = _id => {
         axios.delete(`https://portfolio-projects-restapi.herokuapp.com/posts/${_id}`)
@@ -47,15 +56,12 @@ const Homepage = () => {
         console.log(removeItem)
       }
 
-      const handleUpdate = () => {
-        
-      }
-
     return (
         <>
       <HomeNavbar />
         <section>
             <div className="row" >
+              
                     {users.map(user => {
                        // console.log(user)
                         const {_id, desc, name, quote, others} = user;
@@ -69,8 +75,9 @@ const Homepage = () => {
                               <p className="card-text">{desc}</p>
                                 <p className="card-text">{quote}</p>
                                 <p className="card-text">{others}</p>
-                                <Link to="/" className="btn btn-warning m-3" onClick={() => handleUpdate(_id)} >Update</Link>
+                          <Link to="/" className="btn btn-warning m-3" onClick={() => handleUpdate(_id)}>Update</Link>
                              <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
+    
                              </div>
                          </div>
                          </div>

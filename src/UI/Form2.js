@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar/Form-Navbar';
 import axios from 'axios';
+import Alert from '../UI/Alert';
 
 const Form = ()  => {
+
+  const [alert, setAlert] = useState({show: false, message: '', type: ''})
 
   const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
 
@@ -22,6 +25,11 @@ const Form = ()  => {
 
   const submit = e => {
     e.preventDefault();
+    // display alert
+    if (!data.name && !data.desc && !data.others && !data.quote ) {
+    showAlert(true, 'danger', 'Please Enter Some Values!')
+    } else {
+
     axios.post(url, {
         name: data.name,
         desc: data.desc,
@@ -30,13 +38,21 @@ const Form = ()  => {
     })
     .then(res => { console.log(res.data)});
     setData({name: '', others: '', desc: '', quote: ''}) 
+    showAlert(true, 'success', 'Submitted Successfully!')
+  }}
+
+    // set up alert function
+  const showAlert = (show=false, type="", message="") => {
+    setAlert({show,type,message})
   }
 
     return (
         <>      
         <Navbar />
+
         <div className="container mt-5 text-center">     
         <div className="row">
+{alert.show && <Alert {...alert} removeAlert={showAlert}/>}
 
           <form onSubmit={(e) => submit(e)}>
           <div className="card p-4  bg-light">
@@ -49,7 +65,7 @@ const Form = ()  => {
   id="name"  
   name="name" 
   value={data.name} 
-  onChange={(e)=> handle(e)} required/>
+  onChange={(e)=> handle(e)}/>
 </div>
 
 <div className="mb-3">
@@ -59,7 +75,7 @@ const Form = ()  => {
    id="desc" 
    name="desc"
     value={data.desc} 
-    onChange={(e)=>handle(e)} required/>
+    onChange={(e)=>handle(e)}/>
 </div>
 
 <div className="mb-3">
@@ -69,7 +85,7 @@ const Form = ()  => {
    id="quote"
     name="quote"
      value={data.quote} 
-     onChange={(e)=> handle(e)} required/>
+     onChange={(e)=> handle(e)}/>
 </div>
 
 <div className="mb-3">
@@ -79,7 +95,7 @@ const Form = ()  => {
    id="others" 
    name="others"
     value={data.others}
-     onChange={(e) => handle(e)} required/>
+     onChange={(e) => handle(e)}/>
 </div>
 </div>
 <button className="btn btn-outline-danger">SUBMIT</button>
