@@ -26,10 +26,16 @@ const Form = ()  => {
   const submit = e => {
     e.preventDefault();
     // display alert
-    if (!data.name && !data.desc && !data.others && !data.quote ) {
+    
+    if (data.name === "") {
     showAlert(true, 'danger', 'Please Enter Some Values!')
+    } else if (data.desc === "") {
+      showAlert(true, 'danger', 'Please Enter Some Values!')
+    } else if (data.quote === "") {
+      showAlert(true, 'danger', 'Please Enter Some Values!')
+    } else if (data.others === "") {
+      showAlert(true, 'danger', 'Please Enter Some Values!')
     } else {
-
     axios.post(url, {
         name: data.name,
         desc: data.desc,
