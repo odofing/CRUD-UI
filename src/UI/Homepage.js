@@ -33,19 +33,19 @@ const Homepage = () => {
       }
       
         // CONFIRM DELETE
-      const confirmDelete = () => {
+      // const confirmDelete = () => {
 
-      }
+      // }
 
       // update form 
-      const handleUpdate = (_id) => {
-        const update = users.filter(user => {
-          let updateItem = user._id
-          console.log(updateItem)
-        })
-        console.log('clicked')
+      // const handleUpdate = (_id) => {
+      //   const update = users.filter(user => {
+      //     let updateItem = user._id
+      //     console.log(updateItem)
+      //   })
+      //   console.log('clicked')
           
-      }
+      // }
 
 
       const handleDelete = _id => {
@@ -75,7 +75,7 @@ const Homepage = () => {
                               <p className="card-text">{desc}</p>
                                 <p className="card-text">{quote}</p>
                                 <p className="card-text">{others}</p>
-                          <Link to="/" className="btn btn-warning m-3" onClick={() => handleUpdate(_id)}>Update</Link>
+                          <Link to="/" className="btn btn-warning m-3">Update</Link>
                              <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
     
                              </div>
