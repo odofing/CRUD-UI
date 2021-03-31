@@ -37,7 +37,7 @@ const Homepage = () => {
         return ( 
           <div  className="text-center mt-5 text-capitalize text-primary">
           <h5>
-            Please, Fill the form provided.</h5>
+            Please, Fill the form provided</h5>
             <Link to="/form" className="btn btn-primary text-center ">Form</Link>
             </div>
         )
