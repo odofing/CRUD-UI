@@ -35,8 +35,11 @@ const Homepage = () => {
 
       if (users) {
         return ( 
-          <h5 className="text-center mt-5 text-capitalize text-primary">
-            Please, enter your details in the form provided.</h5>
+          <div  className="text-center mt-5 text-capitalize text-primary">
+          <h5>
+            Please, Fill the form provided.</h5>
+            <Link to="/form" className="btn btn-primary text-center ">Form</Link>
+            </div>
         )
       }
       
