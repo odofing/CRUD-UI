@@ -33,7 +33,8 @@ const Homepage = () => {
         )
       }
 
-      if (users) {
+     // const input = []
+      if (users.length === 0) {
         return ( 
           <div  className="text-center mt-5 text-capitalize text-primary">
           <h5>
