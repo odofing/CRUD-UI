@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Modal from '../UI/Modal';
 import HomeNavbar from './Navbar/Home-Navbar';
 
 const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
@@ -33,19 +34,18 @@ const Homepage = () => {
       }
       
         // CONFIRM DELETE
-      // const confirmDelete = () => {
+      const confirmDelete = () => {
 
-      // }
+      }
 
       // update form 
-      // const handleUpdate = (_id) => {
-      //   const update = users.filter(user => {
-      //     let updateItem = user._id
-      //     console.log(updateItem)
-      //   })
-      //   console.log('clicked')
-          
-      // }
+      const handleUpdate = (_id) => {
+        const update = users.filter(user => {
+          let updateItem = user._id
+       //   console.log(updateItem)
+          return <Modal id={updateItem}/>
+        })
+      }
 
 
       const handleDelete = _id => {
@@ -61,7 +61,6 @@ const Homepage = () => {
       <HomeNavbar />
         <section>
             <div className="row" >
-              
                     {users.map(user => {
                        // console.log(user)
                         const {_id, desc, name, quote, others} = user;
@@ -75,7 +74,7 @@ const Homepage = () => {
                               <p className="card-text">{desc}</p>
                                 <p className="card-text">{quote}</p>
                                 <p className="card-text">{others}</p>
-                          <Link to="/" className="btn btn-warning m-3">Update</Link>
+                                <Link to="/"><Modal /></Link>
                              <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
     
                              </div>
