@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Modal from '../UI/Modal';
 import HomeNavbar from './Navbar/Home-Navbar';
 
 const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
@@ -31,6 +32,16 @@ const Homepage = () => {
 </div>
         )
       }
+
+      if (users) {
+        return ( 
+          <div  className="text-center mt-5 text-capitalize text-primary">
+          <h5>
+            Please, Fill the form provided</h5>
+            <Link to="/form" className="btn btn-primary text-center ">Form</Link>
+            </div>
+        )
+      }
       
         // CONFIRM DELETE
       // const confirmDelete = () => {
@@ -41,10 +52,9 @@ const Homepage = () => {
       // const handleUpdate = (_id) => {
       //   const update = users.filter(user => {
       //     let updateItem = user._id
-      //     console.log(updateItem)
+      //  //   console.log(updateItem)
+      //     return <Modal id={updateItem}/>
       //   })
-      //   console.log('clicked')
-          
       // }
 
 
@@ -61,9 +71,11 @@ const Homepage = () => {
       <HomeNavbar />
         <section>
             <div className="row" >
-              
                     {users.map(user => {
                        // console.log(user)
+                       if (user === []) {
+                       return   <p>Please enter something</p>
+                       } else {
                         const {_id, desc, name, quote, others} = user;
                         return (
                             <React.Fragment key={_id}>
@@ -75,7 +87,7 @@ const Homepage = () => {
                               <p className="card-text">{desc}</p>
                                 <p className="card-text">{quote}</p>
                                 <p className="card-text">{others}</p>
-                          <Link to="/" className="btn btn-warning m-3">Update</Link>
+                                <Link to="/"><Modal /></Link>
                              <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
     
                              </div>
@@ -83,7 +95,7 @@ const Homepage = () => {
                          </div>
                         </div>
                         </React.Fragment>                     
-                        )
+                        )}
                     })
                     
                     }
