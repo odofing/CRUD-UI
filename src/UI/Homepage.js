@@ -32,20 +32,27 @@ const Homepage = () => {
 </div>
         )
       }
+
+      if (users) {
+        return ( 
+          <h5 className="text-center mt-5 text-capitalize text-primary">
+            Please, enter your details in the form provided.</h5>
+        )
+      }
       
         // CONFIRM DELETE
-      const confirmDelete = () => {
+      // const confirmDelete = () => {
 
-      }
+      // }
 
       // update form 
-      const handleUpdate = (_id) => {
-        const update = users.filter(user => {
-          let updateItem = user._id
-       //   console.log(updateItem)
-          return <Modal id={updateItem}/>
-        })
-      }
+      // const handleUpdate = (_id) => {
+      //   const update = users.filter(user => {
+      //     let updateItem = user._id
+      //  //   console.log(updateItem)
+      //     return <Modal id={updateItem}/>
+      //   })
+      // }
 
 
       const handleDelete = _id => {
@@ -63,6 +70,9 @@ const Homepage = () => {
             <div className="row" >
                     {users.map(user => {
                        // console.log(user)
+                       if (user === []) {
+                       return   <p>Please enter something</p>
+                       } else {
                         const {_id, desc, name, quote, others} = user;
                         return (
                             <React.Fragment key={_id}>
@@ -82,7 +92,7 @@ const Homepage = () => {
                          </div>
                         </div>
                         </React.Fragment>                     
-                        )
+                        )}
                     })
                     
                     }
