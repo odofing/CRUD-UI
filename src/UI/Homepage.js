@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 import Modal from '../UI/Modal';
 import HomeNavbar from './Navbar/Home-Navbar';
@@ -44,20 +45,6 @@ const Homepage = () => {
         )
       }
       
-        // CONFIRM DELETE
-      // const confirmDelete = () => {
-
-      // }
-
-      // update form 
-      // const handleUpdate = (_id) => {
-      //   const update = users.filter(user => {
-      //     let updateItem = user._id
-      //  //   console.log(updateItem)
-      //     return <Modal id={updateItem}/>
-      //   })
-      // }
-
 
       const handleDelete = _id => {
         axios.delete(`https://portfolio-projects-restapi.herokuapp.com/posts/${_id}`)
@@ -88,7 +75,7 @@ const Homepage = () => {
                               <p className="card-text">{desc}</p>
                                 <p className="card-text">{quote}</p>
                                 <p className="card-text">{others}</p>
-                                <Link to="/"><Modal /></Link>
+                                <Link to="/"><Modal _id={_id} users={users}/></Link>
                              <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
     
                              </div>
