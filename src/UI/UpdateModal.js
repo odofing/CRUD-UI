@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import FileBase from 'react-file-base64';
+
 
 const Modal = ({ _id, users })  => {
-
 
     const [data, setData] = useState({
         name: '',
@@ -19,12 +20,15 @@ const Modal = ({ _id, users })  => {
   }
  
       const handleUpdate = _id => {
-        axios.put(`https://portfolio-projects-restapi.herokuapp.com/posts/${_id}`, {
-          name: data.name,
-          desc: data.desc,
-          quote: data.quote,
-          others: data.others
+        
+       axios.put(`https://school-project-api.herokuapp.com/${_id}`,  {
+          name: data.name.value,
+          desc: data.desc.value,
+          quote: data.quote.value,
+          others: data.others.value,
+          
       })
+     
         .then(res => { console.log(res.data)})
         const newUser = users.find((user) => user._id === _id);
          return [...users, newUser]
@@ -49,33 +53,32 @@ const Modal = ({ _id, users })  => {
       <div className="modal-body">
         <form>
           <div className="form-group">
-          <label htmlFor="name" className="form-label">Name</label>
-    <input type="text" 
-    className="form-control" 
-    id="name"  
-    name="name" 
-    value={data.name} 
-    onChange={(e)=> handle(e)}/>
+          <label htmlFor="age" className="form-label">Age</label>
+  <input type="number" 
+  className="form-control"
+   id="age" 
+   name="age"
+    value={data.age} 
+    onChange={(e)=>handle(e)}/>
           </div>
 
           <div className="form-group">
-           <label htmlFor="desc" className="form-label">Description</label>
-    <input type="text" 
-    className="form-control"
-     id="desc" 
-     name="desc"
-      value={data.desc} 
-      onChange={(e)=>handle(e)}/>
+          <label htmlFor="Image" className="form-label">Image</label>
+<FileBase
+   type="file" 
+   multiple={false}
+  onDone={({base64}) => setData({ ...data, selectedFile: base64})}
+  />
           </div>
 
           <div className="form-group">
-          <label htmlFor="quote" className="form-label">Quote</label>
-    <input type="text" 
-    className="form-control"
-     id="quote"
-      name="quote"
-       value={data.quote} 
-       onChange={(e)=> handle(e)}/>
+          <label htmlFor="country" className="form-label">Country</label>
+  <input type="text" 
+  className="form-control"
+   id="country" 
+   name="country"
+    value={data.country}
+     onChange={(e) => handle(e)}/>
           </div>
 
           <div className="form-group">
@@ -89,9 +92,7 @@ const Modal = ({ _id, users })  => {
           </div>
         <button type="button" className="btn btn-primary" onClick={() => handleUpdate(_id)}>Send message</button>
         </form>
-      </div>
-      <div className="modal-footer">
-       
+
       </div>
     </div>
   </div>

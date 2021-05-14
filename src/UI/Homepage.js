@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
-import Modal from '../UI/Modal';
+import Modal from './UpdateModal';
 import HomeNavbar from './Navbar/Home-Navbar';
 
-const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
+const url = "https://school-project-api.herokuapp.com";
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
@@ -47,11 +47,11 @@ const Homepage = () => {
       
 
       const handleDelete = _id => {
-        axios.delete(`https://portfolio-projects-restapi.herokuapp.com/posts/${_id}`)
+        axios.delete(`https://school-project-api.herokuapp.com/${_id}`)
         .then(res => { console.log(res.data)})
         const removeItem = users.filter((user) => user._id !== _id)
        setUsers(removeItem);
-        console.log(removeItem)
+      //  console.log(removeItem)
       }
 
     return (
@@ -60,11 +60,11 @@ const Homepage = () => {
         <section>
             <div className="row" >
                     {users.map(user => {
-                       // console.log(user)
+                        console.log(user)
                        if (user === []) {
                        return   <p>Please enter something</p>
                        } else {
-                        const {_id, desc, name, quote, others} = user;
+                        const {_id, name, age, country, selectedFile } = user;
                         return (
                             <React.Fragment key={_id}>
                             <div  className="col-md-6 mt-5 text-center" >
@@ -72,11 +72,11 @@ const Homepage = () => {
                             <div className="card-body">
                             <h5 className="card-title">{name}</h5>
                             <div className="card p-3">
-                              <p className="card-text">{desc}</p>
-                                <p className="card-text">{quote}</p>
-                                <p className="card-text">{others}</p>
+                              <p className="card-text">{age}</p>
+                              <p className="card-text">{country}</p>
+                              <img src={selectedFile} alt={name} className="w-50"/>
                                 <Link to="/"><Modal _id={_id} users={users}/></Link>
-                             <Link to="/" className="btn btn-danger m-3" onClick={() => handleDelete(_id)} >Delete</Link>
+                             <Link to="/" className="btn btn-danger mt-3" onClick={() => handleDelete(_id)} >Delete</Link>
     
                              </div>
                          </div>

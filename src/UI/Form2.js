@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar/Form-Navbar';
+import FileBase from 'react-file-base64';
 import axios from 'axios';
-import Alert from '../UI/Alert';
+import Alert from './Alert';
 
 const Form = ()  => {
 
   const [alert, setAlert] = useState({show: false, message: '', type: ''})
 
-  const url = "https://portfolio-projects-restapi.herokuapp.com/posts";
+  const url = "https://school-project-api.herokuapp.com";
 
   const [data, setData] = useState({
       name: '',
-      desc: '',
-      quote: '',
-      others: ''
+      age: '',
+      selectedFile: '',
+      country: ''
   })
 
   const handle = e => { 
@@ -27,23 +28,23 @@ const Form = ()  => {
     e.preventDefault();
     // display alert
     
-    if (data.name === "") {
+    if (data.name === "" ) {
     showAlert(true, 'danger', 'Please Enter Some Values!')
-    } else if (data.desc === "") {
+    } else if (data.age === "") {
       showAlert(true, 'danger', 'Please Enter Some Values!')
-    } else if (data.quote === "") {
-      showAlert(true, 'danger', 'Please Enter Some Values!')
-    } else if (data.others === "") {
+    // } else if (data.SelectedFile === "") {
+    //   showAlert(true, 'danger', 'Please Attach An Image')
+    } else if (data.country === "") {
       showAlert(true, 'danger', 'Please Enter Some Values!')
     } else {
     axios.post(url, {
         name: data.name,
-        desc: data.desc,
-        quote: data.quote,
-        others: data.others
+        age: data.age,
+      selectedFile: data.selectedFile,
+        country: data.country
     })
     .then(res => { console.log(res.data)});
-    setData({name: '', others: '', desc: '', quote: ''}) 
+    setData({name: '', country: '', age: '', selectedFile: ''}) 
     showAlert(true, 'success', 'Submitted Successfully!')
   }}
 
@@ -75,32 +76,31 @@ const Form = ()  => {
 </div>
 
 <div className="mb-3">
-  <label htmlFor="desc" className="form-label">Description</label>
-  <input type="text" 
+  <label htmlFor="age" className="form-label">Age</label>
+  <input type="number" 
   className="form-control"
-   id="desc" 
-   name="desc"
-    value={data.desc} 
+   id="age" 
+   name="age"
+    value={data.age} 
     onChange={(e)=>handle(e)}/>
 </div>
 
 <div className="mb-3">
-  <label htmlFor="quote" className="form-label">Quote</label>
-  <input type="text" 
-  className="form-control"
-   id="quote"
-    name="quote"
-     value={data.quote} 
-     onChange={(e)=> handle(e)}/>
+  <label htmlFor="Image" className="form-label">Image</label>
+<FileBase
+   type="file" 
+   multiple={false}
+  onDone={({base64}) => setData({ ...data, selectedFile: base64})}
+  />
 </div>
 
 <div className="mb-3">
-  <label htmlFor="others" className="form-label">Other Info</label>
+  <label htmlFor="country" className="form-label">Country</label>
   <input type="text" 
   className="form-control"
-   id="others" 
-   name="others"
-    value={data.others}
+   id="country" 
+   name="country"
+    value={data.country}
      onChange={(e) => handle(e)}/>
 </div>
 </div>
