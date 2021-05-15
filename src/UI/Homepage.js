@@ -1,50 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
+import { GlobalContext } from '../context/GlobalContext';
 import axios from 'axios';
 import Modal from './UpdateModal';
 import HomeNavbar from './Navbar/Home-Navbar';
 
-const url = "https://school-project-api.herokuapp.com";
 
 const Homepage = () => {
-  const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
-  
-
-    const getUsers = async () => {
-        const resp = await fetch(url)
-        const users = await resp.json();
-         setUsers(users)
-         setLoading()
-      }
-      useEffect(() => {
-        
-        getUsers();
-       
-      }, []);
-
-      if (loading) {
-        return (
-          <div className="text-center mt-5">
-  <div className="spinner-border" role="status">
-    <span className="sr-only">Loading...</span>
-  </div>
-</div>
-        )
-      }
-
-     // const input = []
-      if (users.length === 0) {
-        return ( 
-          <div  className="text-center mt-5 text-capitalize text-primary">
-          <h5>
-            Please, Fill the form provided</h5>
-            <Link to="/form" className="btn btn-primary text-center ">Form</Link>
-            </div>
-        )
-      }
-      
+   const [users, setUsers] = useContext(GlobalContext);
 
       const handleDelete = _id => {
         axios.delete(`https://school-project-api.herokuapp.com/${_id}`)
